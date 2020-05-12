@@ -134,9 +134,9 @@ class Graph:
                     if n == destination_vertex:
                         return cache[n]
                     else:
-                        chain = self.dfs_recursive(n, destination_vertex, cache)
-                        if chain is not None:
-                            return chain
+                        output = self.dfs_recursive(n, destination_vertex, cache)
+                        if output is not None:
+                            return output
 
 
 if __name__ == '__main__':
