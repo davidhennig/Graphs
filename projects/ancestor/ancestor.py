@@ -41,17 +41,23 @@ def earliest_ancestor(ancestors, starting_node):
         return -1
 
     q = Queue()
-    q.enqueue(starting_node)
-    visited = set()
-
+    q.enqueue([starting_node])
+    longest = []
+    
     while q.size() > 0:
-        v = q.dequeue()
-        if v not in visited:
-            print(v)
-            visited.add(v)
-            for next_vert in g.get_neighbors(v):
-                q.enqueue(next_vert)
-    return v
+        path = q.dequeue()
+        v = path[-1]
+        if len(path) > len(longest):
+            longest = path
+        if len(path) == len(longest) and path[-1] < longest[-1]:
+            longest = path
+        for neighbor in g.get_neighbors(v):
+            new_path = list(path)
+            new_path.append(neighbor)
+            q.enqueue(new_path)
+            print(q.queue)
+    return longest[-1]
+
 
 test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 earliest_ancestor(test_ancestors, 6)
